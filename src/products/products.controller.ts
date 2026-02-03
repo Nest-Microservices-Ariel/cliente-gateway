@@ -55,8 +55,6 @@ export class ProductsController {
     @Body() updateProductDto: UpdateProductDto,
   ) {
     try {
-      console.log({ id, updateProductDto });
-
       const product = await firstValueFrom(
         this.productClient.send({ cmd: 'update_product' }, { id, ...updateProductDto })
       );
