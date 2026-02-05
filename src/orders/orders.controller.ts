@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
-import { ORDERS_SERVICE } from 'src/config';
+import { NATS_SERVICE, ORDERS_SERVICE } from 'src/config';
 import {
   CreateOrderDto,
   OrderPaginationDto,
@@ -23,12 +23,12 @@ import { PaginationDto } from 'src/common';
 @Controller('orders')
 export class OrdersController {
   constructor(
-    @Inject(ORDERS_SERVICE) private readonly ordersProxy: ClientProxy,
+    @Inject(NATS_SERVICE) private readonly client: ClientProxy,
   ) {}
 
   @Post()
   create(@Body() createOrderDto: CreateOrderDto) {
-    return this.ordersProxy.send('createOrder', { ...createOrderDto }).pipe(
+    return this.client.send('createOrder', { ...createOrderDto }).pipe(
       catchError((err) => {
         throw new RpcException(err);
       }),
@@ -37,7 +37,7 @@ export class OrdersController {
 
   @Get()
   findAll(@Query() orderPaginationDto: OrderPaginationDto) {
-    return this.ordersProxy.send('findAllOrders', orderPaginationDto).pipe(
+    return this.client.send('findAllOrders', orderPaginationDto).pipe(
       catchError((err) => {
         throw new RpcException(err);
       }),
@@ -46,7 +46,7 @@ export class OrdersController {
 
   @Get('id/:id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return this.ordersProxy.send('findOneOrder', { id }).pipe(
+    return this.client.send('findOneOrder', { id }).pipe(
       catchError((err) => {
         throw new RpcException(err);
       }),
@@ -58,7 +58,7 @@ export class OrdersController {
     @Param() statusDto: StatusDto,
     @Query() paginationDto: PaginationDto,
   ) {
-    return this.ordersProxy
+    return this.client
       .send('findAllOrders', { ...paginationDto, status: statusDto.status })
       .pipe(
         catchError((err) => {
@@ -72,7 +72,7 @@ export class OrdersController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() statusDto: StatusDto,
   ) {
-    return this.ordersProxy
+    return this.client
       .send('changeOrderStatus', { id, ...statusDto })
       .pipe(
         catchError((err) => {
