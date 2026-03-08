@@ -17,6 +17,7 @@ async function bootstrap() {
   app.useGlobalFilters(new RpcCustomExceptionFilter());
 
   await app.listen(envs.port);
+  console.log('TEST bind volumen')
   logger.log(`App running on PORT ${envs.port}`);
 }
 bootstrap();
