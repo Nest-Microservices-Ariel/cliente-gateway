@@ -9,7 +9,7 @@ export class AuthController {
     @Inject(NATS_SERVICE) private readonly client: ClientProxy
   ) {}
 
-  @Post()
+  @Post('login')
   async login(@Body() userDto: any) {
     try {
       const result = await firstValueFrom(
@@ -22,7 +22,7 @@ export class AuthController {
     }
   }
 
-  @Post()
+  @Post('register')
   async register(@Body() userDto: any) {
     try {
       const result = await firstValueFrom(
@@ -35,7 +35,7 @@ export class AuthController {
     }
   }
 
-  @Post()
+  @Post('verify')
   async verify(@Body() userDto: any) {
     try {
       const result = await firstValueFrom(
