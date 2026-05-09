@@ -13,7 +13,7 @@ export class AuthController {
   async login(@Body() userDto: any) {
     try {
       const result = await firstValueFrom(
-        this.client.send({ cmd: 'auth.login.user' }, userDto)
+        this.client.send('auth.login.user', userDto)
       );
 
       return result;
@@ -26,7 +26,7 @@ export class AuthController {
   async register(@Body() userDto: any) {
     try {
       const result = await firstValueFrom(
-        this.client.send({ cmd: 'auth.register.user' }, userDto)
+        this.client.send('auth.register.user', userDto)
       );
 
       return result;
@@ -39,7 +39,7 @@ export class AuthController {
   async verify(@Body() userDto: any) {
     try {
       const result = await firstValueFrom(
-        this.client.send({ cmd:'auth.verify.user' }, userDto)
+        this.client.send('auth.verify.user', userDto)
       );
 
       return result;
