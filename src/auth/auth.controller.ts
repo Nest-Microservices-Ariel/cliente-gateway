@@ -2,6 +2,7 @@ import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 import { NATS_SERVICE } from 'src/config';
+import { LoginUserDto, RegisterUserDto } from './dto';
 
 @Controller('auth')
 export class AuthController {
@@ -10,7 +11,7 @@ export class AuthController {
   ) {}
 
   @Post('login')
-  async login(@Body() userDto: any) {
+  async login(@Body() userDto: LoginUserDto) {
     try {
       const result = await firstValueFrom(
         this.client.send('auth.login.user', userDto)
@@ -23,7 +24,7 @@ export class AuthController {
   }
 
   @Post('register')
-  async register(@Body() userDto: any) {
+  async register(@Body() userDto: RegisterUserDto) {
     try {
       const result = await firstValueFrom(
         this.client.send('auth.register.user', userDto)
@@ -36,7 +37,7 @@ export class AuthController {
   }
 
   @Post('verify')
-  async verify(@Body() userDto: any) {
+  async verify(@Body() userDto: LoginUserDto) {
     try {
       const result = await firstValueFrom(
         this.client.send('auth.verify.user', userDto)
