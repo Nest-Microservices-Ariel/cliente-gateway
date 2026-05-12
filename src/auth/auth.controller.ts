@@ -43,10 +43,12 @@ export class AuthController {
   @Get('verify')
   async verify(@User() user: CurrentUser, @Token() token: string ) {
 
-    return this.client.send('auth.verify.user', { user, token }).pipe(
-      catchError((err) => {
-        throw new RpcException(err as string | object);
-      })
-    );
+    //esto ya me lo hace el decorador
+    // return this.client.send('auth.verify.token', { user, token }).pipe(
+    //   catchError((err) => {
+    //     throw new RpcException(err as string | object);
+    //   })
+    // );
+    return { user, token };
   }
 }
