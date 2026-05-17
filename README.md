@@ -31,3 +31,9 @@ $ yarn run start:dev
 # Levantar los otros servicios
 
 ```
+
+## Prod
+
+```bash
+$ docker build -f dockerfile.prod -t client-gateway .
+```

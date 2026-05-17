@@ -1,0 +1,42 @@
+#Dependency
+FROM node:24-alpine3.22 AS deps
+WORKDIR /usr/src/app
+
+COPY package.json ./
+COPY yarn.lock ./
+
+RUN yarn install
+
+#Builder
+FROM node:24-alpine3.22 AS build
+WORKDIR /usr/src/app
+
+#copy dependency from workdir deps to current path node_modules
+COPY --from=deps /usr/src/app/node_modules ./node_modules
+
+#copy all files that is not included in dockerignore
+COPY . .
+
+#RUN yarn test
+
+RUN yarn build
+
+RUN yarn install --frozen-lockfile --production && yarn cache clean
+
+
+#Build the image
+FROM node:24-alpine3.22 AS prod
+WORKDIR /usr/src/app
+
+COPY --from=build /usr/src/app/node_modules ./node_modules
+
+COPY --from=build /usr/src/app/dist ./dist
+
+ENV NODE_ENV=production
+#cambio el usuario para que no sea root por privilegios
+#this user run the next comands
+USER node
+
+EXPOSE 3000
+
+CMD [ "node", "dist/main.js" ]
