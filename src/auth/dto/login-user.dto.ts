@@ -3,7 +3,7 @@ import { IsEmail, IsString, IsStrongPassword } from "class-validator";
 export class LoginUserDto {
   @IsString()
   @IsEmail()
-  email: string;
+  email!: string;
 
   @IsString()
   @IsStrongPassword({
@@ -11,5 +11,5 @@ export class LoginUserDto {
     minUppercase: 1,
     minSymbols: 1
   })
-  password: string;
+  password!: string;
 }

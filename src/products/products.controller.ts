@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { CreateProductDto } from './dtos/create-product.dto';
 import { PaginationDto } from '../common';
-import { NATS_SERVICE, PRODUCT_SERVICE } from 'src/config';
+import { NATS_SERVICE, PRODUCT_SERVICE } from '../config';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { catchError, firstValueFrom } from 'rxjs';
 import { UpdateProductDto } from './dtos/update-product.dto';
@@ -44,8 +44,8 @@ export class ProductsController {
       );
 
       return product;
-    } catch (error) {
-      throw new RpcException(error);
+    } catch (error: unknown) {
+      throw new RpcException(error as string | object);
     }
   }
 
@@ -60,8 +60,8 @@ export class ProductsController {
       );
 
       return product;
-    } catch (error) {
-      throw new RpcException(error);
+    } catch (error: unknown) {
+      throw new RpcException(error as string | object);
     }
   }
 

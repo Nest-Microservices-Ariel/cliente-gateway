@@ -3,12 +3,12 @@ import { IsNumber, IsPositive } from "class-validator";
 export class OrderItemsDto {
   @IsNumber()
   @IsPositive()
-  productId: number;
+  productId!: number;
   @IsPositive()
   @IsNumber()
-  price: number;
+  price!: number;
   @IsPositive()
   @IsNumber()
-  quantity: number;
+  quantity!: number;
 
 }

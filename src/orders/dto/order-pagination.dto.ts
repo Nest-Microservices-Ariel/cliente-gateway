@@ -1,4 +1,4 @@
-import { PaginationDto } from "src/common";
+import { PaginationDto } from "../../common";
 import { OrderStatus, OrderStatusList } from "../enum/orders.enum";
 import { IsEnum, IsOptional } from "class-validator";
 

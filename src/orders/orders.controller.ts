@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
-import { NATS_SERVICE, ORDERS_SERVICE } from 'src/config';
+import { NATS_SERVICE, ORDERS_SERVICE } from '../config';
 import {
   CreateOrderDto,
   OrderPaginationDto,
@@ -18,7 +18,7 @@ import {
   UpdateOrderDto,
 } from './dto';
 import { catchError } from 'rxjs';
-import { PaginationDto } from 'src/common';
+import { PaginationDto } from '../common';
 
 @Controller('orders')
 export class OrdersController {

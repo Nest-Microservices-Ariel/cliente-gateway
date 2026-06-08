@@ -1,8 +1,8 @@
 import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { firstValueFrom, Observable } from "rxjs";
 import { Request } from 'express'
-import { NATS_SERVICE } from "src/config";
 import { ClientProxy } from "@nestjs/microservices";
+import { NATS_SERVICE } from "../../config";
 
 @Injectable()
 export class AuthGuard implements CanActivate {

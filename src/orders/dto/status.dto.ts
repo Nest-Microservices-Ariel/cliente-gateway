@@ -6,5 +6,5 @@ export class StatusDto {
   @IsEnum(OrderStatusList, {
     message: `Status valid are ${ OrderStatusList }`
   })
-  status: OrderStatus
+  status?: OrderStatus
 }
